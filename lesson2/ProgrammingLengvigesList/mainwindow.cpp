@@ -7,7 +7,6 @@ MainWindow::MainWindow(QWidget *parent)
 {
     ui->setupUi(this);
     LangvigeModel* model = new LangvigeModel();
-    qDebug() << model->supportedDragActions();
     ui->tableView->setModel(model);
     ui->treeView->setModel(model);
     ui->listView->setModel(model);
