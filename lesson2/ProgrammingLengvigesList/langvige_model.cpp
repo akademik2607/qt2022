@@ -83,14 +83,14 @@ QMimeData *LangvigeModel::mimeData(const QModelIndexList &indexes) const
         if (index.isValid()) {
             QString text = data(index, Qt::DisplayRole).toString();
             stream << text;
-            qDebug() << text;
+
             startIndex = index.row();
         }
     }
 
 
     mimeData->setData("application/vnd.text.list", encodedData);
-    qDebug() << encodedData;
+
     mimeData->setText(QString{QString::number(startIndex)});
 
 
@@ -132,7 +132,8 @@ bool LangvigeModel::dropMimeData(const QMimeData *data,
             beginRow = parent.row();
         else
             beginRow = rowCount(QModelIndex());
-        qDebug() << beginRow;
+
+        if(beginRow >= langviges.size()) return false;
 
         QByteArray encodedData = data->data("application/vnd.text.list");
         int dropStart = data->text().toInt();
@@ -143,7 +144,7 @@ bool LangvigeModel::dropMimeData(const QMimeData *data,
         while (!stream.atEnd()) {
             QString text;
             stream >> text;
-            qDebug() << text;
+
             newItems << text;
             ++rows;
         }
@@ -152,7 +153,7 @@ bool LangvigeModel::dropMimeData(const QMimeData *data,
             for (const QString &text : qAsConst(newItems)) {
                 QModelIndex idx_s = index(beginRow, 0, QModelIndex());
                 QModelIndex idx_e = index(dropStart, 0, QModelIndex());
-                qDebug() << "Перетащили из " << dropStart;
+
                 QString* result = langviges.at(beginRow);
                 setData(idx_e, *result);
                 setData(idx_s, text);

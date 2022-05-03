@@ -7,8 +7,6 @@ MainWindow::MainWindow(QWidget *parent)
 {
     ui->setupUi(this);
     LangvigeModel* model = new LangvigeModel();
-    ui->tableView->setModel(model);
-    ui->treeView->setModel(model);
     ui->listView->setModel(model);
     ui->listView->setDragEnabled(true);
     ui->listView->viewport()->setAcceptDrops(true);

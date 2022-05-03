@@ -39,7 +39,6 @@ MainWindow::~MainWindow()
 void MainWindow::changeStyle()
 {
     auto model = ui->tableView->model();
-    ui->tableView->selectRow(ui->tableView->currentIndex().row());
     model->setItemData(ui->tableView->currentIndex(), QMap<int, QVariant>{{Qt::BackgroundRole, QColor{Qt::yellow}}});
 }
 
